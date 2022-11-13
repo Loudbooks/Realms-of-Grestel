@@ -1,0 +1,5 @@
+name: Grestel
+author: Loudbook
+version: 1.0
+api-version: 1.19
+main: com.loudbook.dev.Grestel
