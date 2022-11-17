@@ -49,7 +49,7 @@ class Grestel : JavaPlugin() {
                 finalClaim.players = claim.uuids
                 finalClaim.chunks = claim.chunks
                 claimManager.claims.add(finalClaim)
-                println("Added claim ${claim.name} to claimManager")
+                println(" - Added claim ${claim.name} to claimManager")
             }
             println("   ")
             println("All claims have been loaded.")
