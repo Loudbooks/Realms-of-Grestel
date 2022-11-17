@@ -1,6 +1,6 @@
 package com.loudbook.dev.listeners
 
-import com.loudbook.dev.PlayerManager
+import com.loudbook.dev.api.PlayerManager
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerQuitEvent

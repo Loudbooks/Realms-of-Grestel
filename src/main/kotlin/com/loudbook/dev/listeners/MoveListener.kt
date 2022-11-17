@@ -1,6 +1,6 @@
 package com.loudbook.dev.listeners
 
-import com.loudbook.dev.PlayerManager
+import com.loudbook.dev.api.PlayerManager
 import com.loudbook.dev.claim.ClaimManager
 import org.bukkit.ChatColor
 import org.bukkit.event.EventHandler

@@ -1,6 +1,6 @@
 package com.loudbook.dev.claim.tabcomplete
 
-import com.loudbook.dev.PlayerManager
+import com.loudbook.dev.api.PlayerManager
 import com.loudbook.dev.claim.ClaimManager
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender

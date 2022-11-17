@@ -2,7 +2,7 @@ package com.loudbook.dev.claim.commands
 
 import com.github.javafaker.Faker
 import com.loudbook.dev.api.GrestelPlayer
-import com.loudbook.dev.PlayerManager
+import com.loudbook.dev.api.PlayerManager
 import com.loudbook.dev.claim.Claim
 import com.loudbook.dev.claim.ClaimManager
 import net.md_5.bungee.api.chat.ClickEvent
