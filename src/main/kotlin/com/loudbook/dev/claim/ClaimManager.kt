@@ -18,7 +18,7 @@ class ClaimManager {
     val autos: MutableList<GrestelPlayer> = ArrayList()
     fun getClaimByBlock(block: Block): Claim? {
         for (claim in claims) {
-            if (claim.chunks.contains(Pair(block.x.toDouble(), block.z.toDouble()))) {
+            if (claim.chunks.contains(Pair(block.chunk.x.toDouble(), block.chunk.z.toDouble()))) {
                 return claim
             }
         }

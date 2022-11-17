@@ -16,9 +16,13 @@ class UnclaimCommand(private val claimManager: ClaimManager, private val playerM
         if (claimManager.getClaimByPlayer(grestelPlayer) != null){
             val claim = claimManager.getClaimByPlayer(grestelPlayer)!!
             if (claim.owner == grestelPlayer.player.uniqueId){
-                claim.chunks.minus(sender.location.chunk)
-                claim.numberOfChunksAvailable++
-                sender.sendMessage("${ChatColor.GREEN}You have unclaimed this chunk!")
+                if (claim.chunks.contains(Pair(sender.location.chunk.x.toDouble(), sender.location.chunk.z.toDouble()))) {
+                    claim.chunks.remove(Pair(sender.location.chunk.x.toDouble(), sender.location.chunk.z.toDouble()))
+                    claim.numberOfChunksAvailable++
+                    sender.sendMessage("${ChatColor.GREEN}You have unclaimed this chunk!")
+                } else {
+                    sender.sendMessage("${ChatColor.RED}This chunk isn't claimed!")
+                }
             } else {
                 sender.sendMessage("${ChatColor.RED}You are not the owner of this claim!")
             }

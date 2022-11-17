@@ -19,12 +19,11 @@ class MoveListener(private val claimManager: ClaimManager, private val playerMan
                     claimManager.autos.remove(playerManager.getPlayer(e.player)!!)
                     return
                 }
-                playerClaim.chunks.add(Pair(e.player.location.chunk.x.toDouble(), e.player.location.chunk.z.toDouble()))
-                playerClaim.numberOfChunksAvailable--
-                e.player.sendMessage("${ChatColor.GREEN}You have claimed this chunk!")
-
-
-                claimManager.autos.remove(playerManager.getPlayer(e.player)!!)
+                if (!playerClaim.chunks.contains(Pair(e.player.location.chunk.x.toDouble(), e.player.location.chunk.z.toDouble()))){
+                    playerClaim.numberOfChunksAvailable--
+                    playerClaim.chunks.add(Pair(e.player.location.chunk.x.toDouble(), e.player.location.chunk.z.toDouble()))
+                    e.player.sendMessage("${ChatColor.GREEN}You have claimed this chunk!")
+                }
             }
         }
     }

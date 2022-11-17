@@ -24,7 +24,7 @@ class ClaimCommand(private val claimManager: ClaimManager, private val playerMan
                 val grestelPlayer: GrestelPlayer = playerManager.getPlayer(sender)!!
                 if (claimManager.getClaimByPlayer(grestelPlayer) != null && claimManager.getClaimByPlayer(grestelPlayer)!!.owner == grestelPlayer.player.uniqueId){
                     val claim = claimManager.getClaimByPlayer(grestelPlayer)!!
-                    val player = Bukkit.getPlayer(args[0])
+                    val player = Bukkit.getPlayer(args[1])
                     if (player == null || !playerManager.players.containsKey(player)) {
                         sender.sendMessage("${ChatColor.RED}That player is not online/valid!")
                         return true
@@ -128,6 +128,7 @@ class ClaimCommand(private val claimManager: ClaimManager, private val playerMan
                     val claim = claimManager.getClaimByPlayer(grestelPlayer)!!
                     if (claim.numberOfChunksAvailable > 0) {
                         claimManager.autos.add(grestelPlayer)
+                        sender.sendMessage("${ChatColor.GREEN}You have enabled auto claim!")
                     } else {
                         sender.sendMessage("${ChatColor.RED}You do not have any chunks available to auto claim!")
                     }
@@ -147,7 +148,7 @@ class ClaimCommand(private val claimManager: ClaimManager, private val playerMan
                         sender.sendMessage("${ChatColor.RED}You are already in a claim!")
                         return true
                     }
-                    claim.chunks.add(Pair(sender.location.block.x.toDouble(), sender.location.block.z.toDouble()))
+                    claim.chunks.add(Pair(sender.location.chunk.x.toDouble(), sender.location.chunk.z.toDouble()))
                     claim.numberOfChunksAvailable--
                     sender.sendMessage("${ChatColor.GREEN}You have claimed this chunk in the name of ${claim.name}! (${claim.numberOfChunksAvailable} chunks left)")
                 } else {
@@ -157,7 +158,7 @@ class ClaimCommand(private val claimManager: ClaimManager, private val playerMan
                 val faker = Faker()
                 val name = faker.funnyName().name()
                 val claim = Claim(grestelPlayer.player.uniqueId, 5, name, claimManager)
-                claim.chunks.add(Pair(sender.location.block.x.toDouble(), sender.location.block.z.toDouble()))
+                claim.chunks.add(Pair(sender.location.chunk.x.toDouble(), sender.location.chunk.z.toDouble()))
                 claim.numberOfChunksAvailable--
                 claimManager.claims.add(claim)
                 sender.sendMessage("${ChatColor.GREEN}You have claimed this chunk in the name of \"${claim.name}\"! You can rename it with /claim rename <name>.")
