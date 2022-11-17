@@ -18,16 +18,12 @@ class ClaimTabComplete(private val playerManager: PlayerManager, private val cla
             val grestelPlayer = playerManager.getPlayer(sender as Player)
             val claim = claimManager.getClaimByPlayer(grestelPlayer!!)
             if (claim != null){
-                return if (claim.owner == grestelPlayer){
+                return if (claim.owner == grestelPlayer.player.uniqueId){
                     mutableListOf("rename", "invite", "kick", "auto", "disband")
                 } else {
                     mutableListOf("leave")
                 }
-            }  else {
-                println("claim == null")
             }
-        } else {
-            print("args.size != 1")
         }
         return null
     }

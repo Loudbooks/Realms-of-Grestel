@@ -1,6 +1,7 @@
 package com.loudbook.dev.claim
 
-import com.loudbook.dev.GrestelPlayer
+import com.loudbook.dev.api.ClaimSerialized
+import com.loudbook.dev.api.GrestelPlayer
 import org.bukkit.Bukkit
 import org.bukkit.Chunk
 import org.bukkit.Location
@@ -26,7 +27,7 @@ class ClaimManager {
 
     fun getClaimByPlayer(grestelPlayer: GrestelPlayer): Claim?{
         for (claim in claims) {
-            if (claim.players.contains(grestelPlayer) || (claim.owner == grestelPlayer)) {
+            if (claim.players.contains(grestelPlayer.player.uniqueId) || (claim.owner == grestelPlayer.player.uniqueId)) {
                 return claim
             }
         }
@@ -45,7 +46,12 @@ class ClaimManager {
     fun saveClaims() {
         val fileOutputStream = FileOutputStream("plugins/Grestel/claims.db")
         val objectOutputStream = ObjectOutputStream(fileOutputStream)
-        objectOutputStream.writeObject(claims)
+        val claimsSerialized: MutableList<ClaimSerialized> = ArrayList()
+        for (claim in this.claims) {
+            val claimSerialized = ClaimSerialized(claim.players, claim.owner, claim.chunks, claim.name, claim.numberOfChunksAvailable)
+            claimsSerialized.add(claimSerialized)
+        }
+        objectOutputStream.writeObject(claimsSerialized)
         objectOutputStream.close()
         fileOutputStream.close()
         println("Saved claims!")

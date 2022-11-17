@@ -14,7 +14,7 @@ class BlockListener(private val claimManager: ClaimManager, private val playerMa
     fun onPlace(e: PlayerInteractEvent) {
         if (e.clickedBlock == null) return
         if (claimManager.getClaimByBlock(e.clickedBlock!!) != null){
-            if (!claimManager.getClaimByBlock(e.clickedBlock!!)!!.players.contains(playerManager.getPlayer(e.player)!!)){
+            if (!claimManager.getClaimByBlock(e.clickedBlock!!)!!.players.contains(playerManager.getPlayer(e.player)!!.player.uniqueId)){
                 e.isCancelled = true
             }
         }
@@ -22,7 +22,7 @@ class BlockListener(private val claimManager: ClaimManager, private val playerMa
     @EventHandler
     fun onBreak(e: BlockBreakEvent) {
         if (claimManager.getClaimByBlock(e.block) != null){
-            if (!claimManager.getClaimByBlock(e.block)!!.players.contains(playerManager.getPlayer(e.player)!!)){
+            if (!claimManager.getClaimByBlock(e.block)!!.players.contains(playerManager.getPlayer(e.player)!!.player.uniqueId)){
                 e.isCancelled = true
             }
         }
@@ -33,13 +33,13 @@ class BlockListener(private val claimManager: ClaimManager, private val playerMa
         if (e.damager !is Player) return
 
         if (claimManager.getClaimByBlock(e.damager.location.block) != null){
-            if (!claimManager.getClaimByBlock(e.damager.location.block)!!.players.contains(playerManager.getPlayer(e.damager as Player)!!)){
+            if (!claimManager.getClaimByBlock(e.damager.location.block)!!.players.contains(playerManager.getPlayer(e.damager as Player)!!.player.uniqueId)){
 
                 e.isCancelled = true
             }
         }
         if (e.entity is Player){
-            if (!claimManager.getClaimByBlock(e.entity.location.block)!!.players.contains(playerManager.getPlayer(e.entity as Player)!!)){
+            if (!claimManager.getClaimByBlock(e.entity.location.block)!!.players.contains(playerManager.getPlayer(e.entity as Player)!!.player.uniqueId)){
                 e.isCancelled = true
             }
         }

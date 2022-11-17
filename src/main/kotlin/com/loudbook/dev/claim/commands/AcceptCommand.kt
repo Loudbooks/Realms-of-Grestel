@@ -2,6 +2,7 @@ package com.loudbook.dev.claim.commands
 
 import com.loudbook.dev.PlayerManager
 import com.loudbook.dev.claim.ClaimManager
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -23,7 +24,8 @@ class AcceptCommand(private val claimManager: ClaimManager, private val playerMa
             claimManager.invites.remove(UUID.fromString(id))
             sender.sendMessage("${ChatColor.GREEN}You have joined ${claim.name}!")
             for (player in claim.players) {
-                player.player.sendMessage("${ChatColor.GREEN}${sender.name} has joined ${claim.name}!")
+                val possiblePlayer = Bukkit.getPlayer(player)
+                possiblePlayer?.sendMessage("${ChatColor.GREEN}${sender.name} has joined ${claim.name}!")
             }
         } else {
             sender.sendMessage("${ChatColor.RED}This invite isn't valid! If this is a mistake, please contact an admin!")

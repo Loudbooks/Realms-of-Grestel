@@ -1,4 +1,4 @@
-package com.loudbook.dev
+package com.loudbook.dev.api
 
 import com.loudbook.dev.claim.Claim
 import org.bukkit.entity.Player

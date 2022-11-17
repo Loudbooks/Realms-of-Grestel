@@ -1,5 +1,6 @@
 package com.loudbook.dev
 
+import com.loudbook.dev.api.GrestelPlayer
 import org.bukkit.entity.Player
 
 class PlayerManager {
@@ -13,9 +14,7 @@ class PlayerManager {
         return null
     }
     fun addPlayer(player: Player) {
-        println(players.size)
         players[player] = GrestelPlayer(player)
-        println(players.size)
     }
     fun removePlayer(player: Player) {
         players.remove(player)
