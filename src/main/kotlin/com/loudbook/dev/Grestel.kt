@@ -1,5 +1,6 @@
 package com.loudbook.dev
 
+import com.loudbook.dev.api.ClaimSerialized
 import com.loudbook.dev.claim.Claim
 import com.loudbook.dev.claim.commands.ClaimCommand
 import com.loudbook.dev.claim.ClaimManager
@@ -35,19 +36,39 @@ class Grestel : JavaPlugin() {
         this.getCommand("accept")!!.setExecutor(AcceptCommand(claimManager, playerManager))
         this.getCommand("unclaim")!!.setExecutor(UnclaimCommand(claimManager, playerManager))
         this.getCommand("claim")!!.tabCompleter = ClaimTabComplete(playerManager, claimManager)
+        val fileInputStream = FileInputStream(File("plugins/Grestel/claims.db"))
+        val objectInputStream = ObjectInputStream(fileInputStream)
         try {
-            val fileInputStream = FileInputStream(File("plugins/Grestel/claims.db"))
-            val objectInputStream = ObjectInputStream(fileInputStream)
-            if (objectInputStream.readObject() is MutableList<*>) {
-                val claims: MutableList<Claim> = objectInputStream.readObject() as MutableList<Claim>
-                for (claim in claims) {
-                    claimManager.claims.add(claim)
-                    println("Added claim ${claim.name} to claimManager")
-                }
+            val claims: MutableList<ClaimSerialized> = objectInputStream.readObject() as ArrayList<ClaimSerialized>
+            println("   ")
+            println("-------------------------")
+            println("Loading Claims...")
+            println("   ")
+            for (claim in claims) {
+                val finalClaim = Claim(claim.owner, claim.numberOfChunksAvailable, claim.name, claimManager)
+                finalClaim.players = claim.uuids
+                finalClaim.chunks = claim.chunks
+                claimManager.claims.add(finalClaim)
+                println("Added claim ${claim.name} to claimManager")
             }
-        } catch (ex: EOFException){
-            println("No claims found!")
+            println("   ")
+            println("All claims have been loaded.")
+            println("-------------------------")
+            println("   ")
+        } catch (e: EOFException) {
+            println("Done importing!")
         }
+
+        println("\n" +
+                "   _____               _       _ \n" +
+                "  / ____|             | |     | |\n" +
+                " | |  __ _ __ ___  ___| |_ ___| |\n" +
+                " | | |_ | '__/ _ \\/ __| __/ _ \\ |\n" +
+                " | |__| | | |  __/\\__ \\ ||  __/ |\n" +
+                "  \\_____|_|  \\___||___/\\__\\___|_|\n" +
+                "                                 \n" +
+                "                                 \n")
+        println("By Loudbook")
     }
 
     override fun onDisable() {
