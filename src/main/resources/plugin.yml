@@ -3,3 +3,13 @@ author: Loudbook
 version: 1.0
 api-version: 1.19
 main: com.loudbook.dev.Grestel
+commands:
+  claim:
+    description: Claim a chunk
+    usage: /claim
+  unclaim:
+    description: Unclaim a chunk
+    usage: /unclaim
+  accept:
+    description: Accept a claim
+    usage: /accept

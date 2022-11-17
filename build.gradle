@@ -25,6 +25,8 @@ dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.33'
+    implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
 
 }
 
